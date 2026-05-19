@@ -1,0 +1,9 @@
+{
+    "decks": [
+        {
+            "id": "test_1",
+            "title": "My First Deck",
+            "cards": []
+        }
+    ]
+}
