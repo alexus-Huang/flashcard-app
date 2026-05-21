@@ -85,3 +85,61 @@ def delete_card(deck_id, card_id):
             deck["cards"] = [c for c in deck["cards"] if c["id"] != card_id]
             save_store(store)
             return
+
+def get_due_cards(deck_id):
+    """
+    return only the cards that are due for review today
+    card is due if next_review date is today or ealier - compare date.today() against next_review field
+    """
+    store = load_store()
+    deck_of_cards = get_deck_by_id(deck_id)
+    if deck_of_cards is None:
+        return []
+    due_cards = []
+    for each_card in deck_of_cards["cards"]:
+        if each_card["srs"]["next_review"] is None:
+            continue
+        review_date = date.fromisoformat(each_card["srs"]["next_review"])
+        if review_date <= date.today():
+            due_cards.append(each_card)
+    
+    return due_cards
+def show_card(card):
+    """
+    display the front of a card and wait for the user to press their enter that shows the back
+    """
+    print(card["front"])
+    input("Press enter to see the answer...")
+    print(card["back"])
+
+def get_user_result():
+    """
+    after showing the answer, ask the user if they got it right or not
+    returns true or false based on input - press 1 for correct and 2 for incorrect
+    """
+    while True:
+        answer = input("Did you get it right?\n(1) Yes\n(2) No")
+        if answer == "1":
+            return True
+        elif answer == "2":
+            return False
+        else:
+            print("Please enter a valid choice")
+
+def run_study_session(deck_id):
+    # get due cards for the deck
+    # if no cards are due then tell the user and exit
+    # loop thorugh each card, show it, get the result,
+    # at the end print a summary "3/5 correct"
+    due_cards = get_due_cards(deck_id)
+    total_cards = len(due_cards)
+    correct_cards = 0
+    if len(due_cards) == 0:
+        print("No cards are due")
+        return 
+    for each_card in due_cards:
+        show_card(each_card)
+        user_result = get_user_result()
+        if user_result:
+            correct_cards +=1
+    print(f"{correct_cards}/{total_cards} correct")   
