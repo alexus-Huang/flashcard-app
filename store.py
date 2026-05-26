@@ -143,3 +143,67 @@ def run_study_session(deck_id):
         if user_result:
             correct_cards +=1
     print(f"{correct_cards}/{total_cards} correct")   
+
+def deck_menu(deck_id):
+    while True:
+        print("\n=== Deck Menu ===")
+        print("(1) View cards")
+        print("(2) Add card")
+        print("(3) Delete card")
+        print("(4) Study")
+        print("(0) Back")
+        user_input = input("Enter an option:")
+        if user_input == "1":
+            show_cards = get_cards(deck_id)
+            for each_card in show_cards:
+                print(f"{each_card["front"]} -> {each_card["back"]} - {each_card["id"]}")
+        elif user_input == "2":
+            deck_front = input("Enter front deck info:")
+            deck_back = input("Enter back deck info:")
+            add_card(deck_id,deck_front,deck_back)
+        elif user_input == "3":
+            card_id = input("Enter card id:")
+            delete_card(deck_id,card_id)
+        elif user_input == "4":
+            run_study_session(deck_id)
+        elif user_input == "0":
+            break
+        else:
+            print("Must enter a valid choice")
+
+def main_menu():
+    while True:
+        print("\n=== Flashcard App ===")
+        print("(1) View decks")
+        print("(2) Add deck")
+        print("(3) Delete deck")
+        print("(4) Select a deck")
+        print("(0) Quit")
+        user_input = input("Enter an option:")
+        if user_input == "1":
+            show_decks = get_decks()
+            for i, deck in enumerate(show_decks):
+                print(f"({i+1}) {deck['title']}")
+        elif user_input == "2":
+            deck_title = input("Enter deck title:")
+            add_deck(deck_title)
+        elif user_input == "3":
+            show_decks = get_decks()
+            for i, deck in enumerate(show_decks):
+                print(f"({i+1}) {deck['title']}")
+            choice = input("Pick a deck to delete:")
+            selected_deck = show_decks[int(choice)-1]
+            delete_deck(selected_deck["id"])
+        elif user_input == "4":
+            show_decks = get_decks()
+            for i, deck in enumerate(show_decks):
+                print(f"({i+1}) {deck['title']}")
+            choice = input("Pick a deck:")
+            selected_deck = show_decks[int(choice)-1]
+            deck_menu(selected_deck["id"])
+        elif user_input == "0":
+            break
+        else:
+            print("Must enter a valid choice")
+
+main_menu()

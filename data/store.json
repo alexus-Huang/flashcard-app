@@ -4,6 +4,42 @@
             "id": "test_1",
             "title": "My First Deck",
             "cards": []
+        },
+        {
+            "id": "0fc74a86-e17e-4772-a278-2b7178530704",
+            "title": "test2",
+            "cards": [
+                {
+                    "id": "d58b6b1c-9db0-46dd-a655-ab155223f9a7",
+                    "front": "hi",
+                    "back": "hello",
+                    "tags": [],
+                    "difficulty": "medium",
+                    "date_created": "2026-05-26",
+                    "srs": {
+                        "interval": 1,
+                        "ease_factor": 2.5,
+                        "repetitions": 0,
+                        "next_review": null,
+                        "last_result": null
+                    }
+                },
+                {
+                    "id": "a8032b65-80f8-4f08-b8d7-9bf6ba0eb9e5",
+                    "front": "hello",
+                    "back": "oof",
+                    "tags": [],
+                    "difficulty": "medium",
+                    "date_created": "2026-05-26",
+                    "srs": {
+                        "interval": 1,
+                        "ease_factor": 2.5,
+                        "repetitions": 0,
+                        "next_review": null,
+                        "last_result": null
+                    }
+                }
+            ]
         }
     ]
 }
